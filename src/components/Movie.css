@@ -16,3 +16,11 @@ div.poster {
     display: flex;
     justify-content: space-evenly;
 }
+
+.chkOutBtnFormGroup {
+    justify-content: flex-end;
+}
+
+.selectCtrl {
+    width: 30%;
+}

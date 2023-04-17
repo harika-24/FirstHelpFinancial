@@ -1,12 +1,25 @@
 import { Container, Row, Col, Image, Form, Button } from "react-bootstrap";
 import { useParams } from "react-router-dom";
+import {useState} from 'react';
 import "./Movie.css";
 
 function Movie(props) {
+  const [seats, setSeats] = useState(1);
+  console.log("No of Seats " + seats);
   let { id } = useParams();
-  console.log("params " + id);
   let movies = props.shows;
   let movie = movies.filter((m) => m.id === parseInt(id))[0];
+
+  const handleFormSubmit = (event) => {
+    event.preventDefault();
+    props.handleSeatBooking(seats);
+  }
+
+  const handleSelectionChange = (event) => {
+    setSeats(event.target.value);
+  }
+
+
   return (
     <div>
       <Container>
@@ -29,17 +42,26 @@ function Movie(props) {
             </Row>
             <Row>
               <Col>
-                <Form>
+                <Form onSubmit={handleFormSubmit}>
                   <Form.Group className="mb-3">
-                    <Form.Select values={1}>
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
+                    <Form.Select className="selectCtrl" values={seats} onChange={handleSelectionChange} >
+                      <option value="1" >1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                      <option value="6">6</option>
+                      <option value="7">7</option>
+                      <option value="8">8</option>
+                      <option value="9">9</option>
+                      <option value="10">10</option>
                     </Form.Select>
                   </Form.Group>
-                  <Button variant="primary" type="submit">
+                  <Form.Group className="d-flex chkOutBtnFormGroup">
+                  <Button className="p-3" variant="primary" type="submit">
                     Proceed to Checkout
                   </Button>
+                  </Form.Group>
                 </Form>
               </Col>
             </Row>

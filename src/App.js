@@ -17,6 +17,12 @@ import "./App.css"
 
 function App() {
     const [movies, setMovies] = useState(movieList);
+    const [noOfSeats, setNoOfSeats] = useState(0);
+
+    const handleSeatBooking = (bookingSeatQty) => {
+        console.log("I AM IN APP HANDLE SEAT BOOKING " + bookingSeatQty);
+        setNoOfSeats(bookingSeatQty)
+    }
 
     return(
         <div className="Home">
@@ -32,7 +38,7 @@ function App() {
                     <ShowsList shows={movies} />
                 }/>
                 <Route exact path={"/movie/:id/"} element={
-                    <Movie  shows={movies} />
+                    <Movie  shows={movies} handleSeatBooking={handleSeatBooking} />
                 }/>
             </Routes>
         </div>
