@@ -1,4 +1,7 @@
-import {Routes, Route, Link} from "react-router-dom";
+import { useState } from "react";
+import {Routes, Route} from "react-router-dom";
+import { movieList } from "./utils/data";
+
 
 //Bootstrap Links
 import Container from 'react-bootstrap/Container';
@@ -13,6 +16,8 @@ import Movie from "./components/Movie";
 import "./App.css"
 
 function App() {
+    const [movies, setMovies] = useState(movieList);
+
     return(
         <div className="Home">
             <Navbar bg="primary" expand="lg" sticky="top" variant="dark">
@@ -24,7 +29,7 @@ function App() {
             </Navbar>
             <Routes>
                 <Route exact path={"/"} element={
-                    <ShowsList />
+                    <ShowsList shows={movies} />
                 }/>
                 <Route exact path={"/movie"} element={
                     <Movie />
