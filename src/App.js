@@ -31,8 +31,8 @@ function App() {
                 <Route exact path={"/"} element={
                     <ShowsList shows={movies} />
                 }/>
-                <Route exact path={"/movie"} element={
-                    <Movie />
+                <Route exact path={"/movie/:id/"} element={
+                    <Movie  shows={movies} />
                 }/>
             </Routes>
         </div>

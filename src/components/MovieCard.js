@@ -1,5 +1,6 @@
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import {Link} from "react-router-dom";
 
 function MovieCard (props) {
 
@@ -12,7 +13,7 @@ function MovieCard (props) {
         <Card.Text>
             {props.movie.time}
         </Card.Text>
-        <Button variant="primary">Get Tickets</Button>
+        <Link to={`/movie/${props.movie.id}/`}><Button variant="primary">Get Tickets</Button></Link>
       </Card.Body>
     </Card>
     )
