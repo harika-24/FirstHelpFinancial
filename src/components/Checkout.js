@@ -1,15 +1,121 @@
 import { Container, Row, Col, Card, Form, Button } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlined";
 import "./checkout.css";
 
-function Checkout() {
+function Checkout(props) {
   const [show, setShow] = useState(false);
+  const [paymentType, setPaymentType] = useState(null);
+  const [paymentInformationIsValid, setPaymentInformationIsValid] =
+    useState(false);
+  const [creditCardNo, setCreditCardNo] = useState("");
+  const [expMonth, setExpMonth] = useState("");
+  const [expYear, setExpYear] = useState("");
+  const [cvv, setCVV] = useState("");
+  const [acknowledgment, setAcknowledgment] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const serviceFee = 10.99;
+  const orderProcessingFee = 2.99;
+
+  useEffect(() => {
+    verifyInputsForPayment();
+  }, [paymentType, creditCardNo, expMonth, expYear, cvv, acknowledgment]);
+
+  const handleClose = () => {
+    navigate("/");
+    props.handleSuccessfulSeatBooking();
+    setShow(false);
+  };
+  const handleShow = () => {
+    setShow(true);
+  };
+
+  const verifyInputsForPayment = () => {
+    const numberInputCheck = /^\d+$/;
+    let currentYear = new Date().getFullYear() % 100;
+    let currentMonth = new Date().getMonth() + 1;
+    console.log("Acknowledgement " + acknowledgment);
+    if (!paymentType) {
+      setPaymentInformationIsValid(false);
+      setErrorMessage("Payment method needs to be selected");
+    }  else if (paymentType === "apple-pay" && acknowledgment) {
+      setPaymentInformationIsValid(true);
+      setErrorMessage('');
+    } else if (paymentType === "credit-card" && acknowledgment) {
+      if (creditCardNo === null || creditCardNo.length !== 16) {
+        setPaymentInformationIsValid(false);
+        setErrorMessage("Re-check your card number");
+      } else if (
+        expMonth === null ||
+        expMonth.length !== 2 ||
+        !numberInputCheck.test(expMonth) ||
+        parseInt(expMonth, 10) < 1 ||
+        parseInt(expMonth, 10) > 12
+      ) {
+        setPaymentInformationIsValid(false);
+        setErrorMessage("Enter valid month");
+      } else if (
+        expYear === null ||
+        expYear.length !== 2 ||
+        !numberInputCheck.test(expYear) ||  parseInt(expYear, 10) < currentYear ||  (parseInt(expYear, 10) === currentYear && parseInt(expMonth,10) <= currentMonth)
+      ) {
+        setPaymentInformationIsValid(false);
+        setErrorMessage("Enter valid year");
+      } else if (
+        cvv === null ||
+        cvv.length !== 3 ||
+        !numberInputCheck.test(cvv)
+      ) {
+        setPaymentInformationIsValid(false);
+        setErrorMessage("Enter valid CVV");
+      } 
+      else {
+        setPaymentInformationIsValid(true);
+        setErrorMessage('')
+      }
+    }  else {
+      setPaymentInformationIsValid(false);   
+      setErrorMessage("Please accept the terms and conditions.");
+    }
+  };
+
+  const handlePaymentSelection = (event) => {
+    setPaymentType(event.target.value);
+    if (event.target.value === "apple-pay") {
+      setCreditCardNo("");
+      setExpMonth("");
+      setExpYear("");
+      setCVV("");
+    }
+  };
+
+  const handleCreditCardChange = (event) => {
+    let inputCreditCardNo = event.target.value;
+    setCreditCardNo(inputCreditCardNo);
+  };
+
+  const handleMonthChange = (event) => {
+    setExpMonth(event.target.value);
+  };
+
+  const handleYearChange = (event) => {
+    setExpYear(event.target.value);
+  };
+
+  const handleCVVChange = (event) => {
+    setCVV(event.target.value);
+  };
+
+  const handleAcknowledgement = (event) => {
+    setAcknowledgment(event.target.checked);
+  };
+
+  const handlePlaceOrder = (event) => {
+    event.preventDefault();
+  };
 
   const navigate = useNavigate();
   return (
@@ -33,7 +139,10 @@ function Checkout() {
           <Row className="payment-row">
             <Card className="payment-card">
               <Card.Title>
-                Payment <CheckCircleOutlinedIcon color="disabled" />
+                Payment{" "}
+                <CheckCircleOutlinedIcon
+                  color={paymentInformationIsValid ? "success" : "disabled"}
+                />
               </Card.Title>
 
               <Form.Check
@@ -41,23 +150,45 @@ function Checkout() {
                 id="credit-radio"
                 label="Credit Card/ Debit Card"
                 name="payment-method"
+                value="credit-card"
+                onChange={handlePaymentSelection}
               />
               <Form.Group>
                 <Form.Label>Card Number</Form.Label>
-                <Form.Control type="text" placeholder="Enter Card Number" />
+                <Form.Control
+                  type="text"
+                  placeholder="Enter Card Number (XXXX-XXXX-XXXX-XXXX)"
+                  onChange={handleCreditCardChange}
+                  value={creditCardNo}
+                />
               </Form.Group>
               <Row>
                 <Form.Group as={Col} className="ps-0">
                   <Form.Label>Month</Form.Label>
-                  <Form.Control type="text" placeholder="Enter Month" />
+                  <Form.Control
+                    type="text"
+                    placeholder="Enter Month (MM)"
+                    onChange={handleMonthChange}
+                    value={expMonth}
+                  />
                 </Form.Group>
                 <Form.Group as={Col}>
                   <Form.Label>Year</Form.Label>
-                  <Form.Control type="text" placeholder="Enter Year" />
+                  <Form.Control
+                    type="text"
+                    placeholder="Enter Year (YY)"
+                    onChange={handleYearChange}
+                    value={expYear}
+                  />
                 </Form.Group>
                 <Form.Group as={Col} className="pe-0">
                   <Form.Label>CVV</Form.Label>
-                  <Form.Control type="text" placeholder="Enter CVV" />
+                  <Form.Control
+                    type="text"
+                    placeholder="Enter CVV"
+                    onChange={handleCVVChange}
+                    value={cvv}
+                  />
                 </Form.Group>
               </Row>
               <hr />
@@ -68,6 +199,8 @@ function Checkout() {
                 label="Apple Pay"
                 className="mb-4"
                 name="payment-method"
+                value="apple-pay"
+                onChange={handlePaymentSelection}
               />
             </Card>
           </Row>
@@ -82,7 +215,11 @@ function Checkout() {
                       <Card.Title> Total</Card.Title>
                     </Col>
                     <Col>
-                      <Card.Title>$64.97</Card.Title>
+                      <Card.Title>{`\$${(
+                        props.movie.ticketPrice * props.seats +
+                        serviceFee +
+                        orderProcessingFee
+                      ).toFixed(2)}`}</Card.Title>
                     </Col>
                   </Row>
                 </Row>
@@ -91,8 +228,8 @@ function Checkout() {
                     <Card.Subtitle>Tickets</Card.Subtitle>
                   </Row>
                   <Row>
-                    <Col>$25.45 * 2</Col>
-                    <Col>$50.99</Col>
+                    <Col>{`\$${props.movie.ticketPrice} * ${props.seats}`}</Col>
+                    <Col>{`\$${props.movie.ticketPrice * props.seats}`}</Col>
                   </Row>
                 </Row>
                 <Row>
@@ -129,10 +266,22 @@ function Checkout() {
                     className="mt-3"
                     type="checkbox"
                     label="I have read and agree to the terms of use"
+                    onChange={handleAcknowledgement}
+                    checked={acknowledgment}
                   />
                 </Row>
                 <Row className="place-order-btn d-flex mt-2">
-                  <Button variant="success" className="orderBtn" onClick={handleShow}>
+                  <div className="error-msg">
+                    {errorMessage}
+                  </div>
+                  <Button
+                    variant={
+                      paymentInformationIsValid ? "success" : "secondary"
+                    }
+                    className="orderBtn"
+                    onClick={handleShow}
+                    disabled={!paymentInformationIsValid}
+                  >
                     Place Order
                   </Button>
                 </Row>
@@ -141,17 +290,24 @@ function Checkout() {
           </Row>
         </Col>
       </Row>
-      <Modal show={show} onHide={handleClose} aria-labelledby="contained-modal-title-vcenter"
-      centered>
-        <Modal.Header closeButton onClick={() => navigate("/")}>
-        <Modal.Title>Payment Confirmation</Modal.Title>
+      <Modal
+        show={show}
+        onHide={handleClose}
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header closeButton onClick={handleClose}>
+          <Modal.Title>Payment Confirmation</Modal.Title>
         </Modal.Header>
-        
-        <Modal.Body>Thank you so much for your payment!! Tickets will be mailed to you on your email</Modal.Body>
+
+        <Modal.Body>
+          Thank you so much for your payment!! Tickets will be mailed to you on
+          your email
+        </Modal.Body>
         <Modal.Footer>
           <Link to={"/"}>
             <Button variant="secondary" onClick={handleClose}>
-                Close
+              Close
             </Button>
           </Link>
         </Modal.Footer>

@@ -1,7 +1,15 @@
 .showRow {
     margin-top: 3rem;
+    justify-content: center;
 }
 
 .showCol {
     margin-top: 1rem;
+}
+
+.no-show-div {
+    font-weight: bold;
+    font-size: x-large;
+    width: 80%;
+    text-align: center;
 }

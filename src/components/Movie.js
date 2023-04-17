@@ -1,25 +1,26 @@
 import { Container, Row, Col, Image, Form, Button } from "react-bootstrap";
-import { useParams, Link } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import {useState} from 'react';
 import "./Movie.css";
 
 function Movie(props) {
+
+  const navigate = useNavigate();
+
   const [seats, setSeats] = useState(1);
-  console.log("No of Seats " + seats);
   let { id } = useParams();
   let movies = props.shows;
   let movie = movies.filter((m) => m.id === parseInt(id))[0];
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
-    props.handleSeatBooking(seats);
+    props.handleSeatBooking(movie,seats);
+    navigate("/checkout")
   }
 
   const handleSelectionChange = (event) => {
     setSeats(event.target.value);
   }
-
-
   return (
     <div>
       <Container>
@@ -58,11 +59,11 @@ function Movie(props) {
                     </Form.Select>
                   </Form.Group>
                   <Form.Group className="d-flex chkOutBtnFormGroup">
-                  <Link to={'/checkout'}>
-                    <Button className="p-3" variant="primary" type="submit">
+                  
+                    <Button className="p-3" variant="primary" type="submit" onClick={handleFormSubmit}>
                         Proceed to Checkout
                     </Button>
-                  </Link>
+                  
                   </Form.Group>
                 </Form>
               </Col>

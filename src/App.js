@@ -17,13 +17,24 @@ import Checkout from "./components/Checkout";
 import "./App.css"
 
 function App() {
+    
     const [movies, setMovies] = useState(movieList);
+    const [selectedMovie, setMovie] = useState(null);
     const [noOfSeats, setNoOfSeats] = useState(0);
 
-    const handleSeatBooking = (bookingSeatQty) => {
-        console.log("I AM IN APP HANDLE SEAT BOOKING " + bookingSeatQty);
+    const handleSeatBooking = (movieBooked,bookingSeatQty) => {
+        console.log("I AM IN APP HANDLE SEAT BOOKING " + movieBooked);
         setNoOfSeats(bookingSeatQty)
+        setMovie(movieBooked);
     }
+
+    const handleSuccessfulSeatBooking = () => {
+        setNoOfSeats(0)
+        setMovie(null);
+       
+    }
+
+    console.log("No of seats and movie after succesful checkout" + noOfSeats + " " + selectedMovie);
 
     return(
         <div className="Home">
@@ -42,7 +53,7 @@ function App() {
                     <Movie  shows={movies} handleSeatBooking={handleSeatBooking} />
                 }/>
                 <Route exact path={"/checkout"} element={
-                    <Checkout seats={noOfSeats} />
+                    <Checkout seats={noOfSeats} movie={selectedMovie} handleSuccessfulSeatBooking={handleSuccessfulSeatBooking} />
                 }/>
             </Routes>
         </div>
