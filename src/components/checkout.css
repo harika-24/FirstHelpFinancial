@@ -1,0 +1,36 @@
+.info-payment-col>.row {
+    margin: 2rem 0rem;
+}
+
+.info-card>div {
+    margin: 0.5rem 0;
+}
+
+.info-card>.card-title {
+    margin-top: 1rem;
+    font-weight: bold;
+    font-size: x-large;
+}
+
+.info-card>.card-text {
+    font-size: smaller;
+}
+
+.payment-card>.card-title {
+    margin-top: 1rem;
+    font-weight: bold;
+    font-size: x-large;
+}
+
+.payment-card>div {
+    margin: 0.5rem 0;
+}
+
+.payment-card>.card-subtitle {
+    font-size: larger;
+    font-weight: bold;
+}
+
+.form-check>label {
+    font-weight: bold;
+}
