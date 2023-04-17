@@ -2,11 +2,21 @@
     margin: 2rem 0rem;
 }
 
+.summary-col>.row {
+    margin: 2rem 0rem;
+}
+
 .info-card>div {
     margin: 0.5rem 0;
 }
 
 .info-card>.card-title {
+    margin-top: 1rem;
+    font-weight: bold;
+    font-size: x-large;
+}
+
+.summary-card .card-title {
     margin-top: 1rem;
     font-weight: bold;
     font-size: x-large;
@@ -33,4 +43,42 @@
 
 .form-check>label {
     font-weight: bold;
+}
+
+.summary-card .card-subtitle {
+    font-weight: bold;
+}
+
+.order-details>.row {
+    margin-bottom: 1rem;
+}
+
+.order-details>.row .col:nth-child(2) {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 0;
+}
+
+.cancelBtn {
+    width: 30%;
+}
+
+.orderBtn {
+    width: 50%;
+    justify-content: flex-start;
+}
+
+.cancel-row {
+    justify-content: flex-start;
+    margin-left: 0;
+}
+
+.place-order-btn {
+    justify-content: flex-end;
+    margin-left: 0;
+}
+
+.terms-check {
+    justify-content: flex-start;
+    margin-left: 0;
 }
