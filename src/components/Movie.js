@@ -2,7 +2,10 @@ import { Container, Row, Col, Image, Form, Button } from "react-bootstrap";
 import { useParams, useNavigate } from "react-router-dom";
 import {useState} from 'react';
 import "./Movie.css";
-
+/**
+ * The Movie Component reprsents the page where the user can select the qty
+ * of the number of seats to book tickets
+ */
 function Movie(props) {
 
   const navigate = useNavigate();

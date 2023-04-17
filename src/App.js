@@ -22,19 +22,23 @@ function App() {
     const [selectedMovie, setMovie] = useState(null);
     const [noOfSeats, setNoOfSeats] = useState(0);
 
+    /**
+     * Function to handle user input of seat qty and movie selection and update the state.
+     * This helps lift the state up and pass the movie and quantity selection to Checkout Component. 
+     * */ 
     const handleSeatBooking = (movieBooked,bookingSeatQty) => {
-        console.log("I AM IN APP HANDLE SEAT BOOKING " + movieBooked);
         setNoOfSeats(bookingSeatQty)
         setMovie(movieBooked);
     }
 
+    /**
+     * This function resets the state of the app after a successfull booking of the tickets.
+     */
     const handleSuccessfulSeatBooking = () => {
         setNoOfSeats(0)
         setMovie(null);
        
     }
-
-    console.log("No of seats and movie after succesful checkout" + noOfSeats + " " + selectedMovie);
 
     return(
         <div className="Home">

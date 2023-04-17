@@ -5,6 +5,9 @@ import { Link, useNavigate } from "react-router-dom";
 import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlined";
 import "./checkout.css";
 
+/**
+ * The Checkout Component displays the Checkout Page.
+ */
 function Checkout(props) {
   const [show, setShow] = useState(false);
   const [paymentType, setPaymentType] = useState(null);
@@ -20,19 +23,30 @@ function Checkout(props) {
   const serviceFee = 10.99;
   const orderProcessingFee = 2.99;
 
+  /**
+   * Verify the user input anytime there is any change in the input.
+   */
   useEffect(() => {
     verifyInputsForPayment();
   }, [paymentType, creditCardNo, expMonth, expYear, cvv, acknowledgment]);
 
+  /**
+   * Closes the modal and navigates to the Home.
+   */
   const handleClose = () => {
     navigate("/");
     props.handleSuccessfulSeatBooking();
     setShow(false);
   };
+
+  
   const handleShow = () => {
     setShow(true);
   };
 
+  /**
+   * This function is to validate the user input
+   */
   const verifyInputsForPayment = () => {
     const numberInputCheck = /^\d+$/;
     let currentYear = new Date().getFullYear() % 100;
@@ -93,8 +107,7 @@ function Checkout(props) {
   };
 
   const handleCreditCardChange = (event) => {
-    let inputCreditCardNo = event.target.value;
-    setCreditCardNo(inputCreditCardNo);
+    setCreditCardNo(event.target.value);
   };
 
   const handleMonthChange = (event) => {
@@ -111,10 +124,6 @@ function Checkout(props) {
 
   const handleAcknowledgement = (event) => {
     setAcknowledgment(event.target.checked);
-  };
-
-  const handlePlaceOrder = (event) => {
-    event.preventDefault();
   };
 
   const navigate = useNavigate();

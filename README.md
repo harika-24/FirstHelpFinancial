@@ -1,70 +1,57 @@
-# Getting Started with Create React App
+# First Help Financial - Ticket Booking
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## Steps to run the application
 
-In the project directory, you can run:
+### `npm install`
+Downloads the npm packages required to run the application
 
 ### `npm start`
-
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Features in the Project
+- Users can select a show from a list of shows
+- Users can select the number of seats to book tickets for
+- Users can add payment details in the checkout page
+- Added validation of user input in the checkout Page
+- User can only proceed to checkout if valid data has been entered
+- After successful payment the user can see a modal closing which, they are navigated to homepage
 
-### `npm test`
+## Assumptions
+- Utilized dummy data and provided only booking of movies
+- Users are not expected to enter invalid url. For example - user cannot enter http://localhost:3000/movie/100 as there is no movie with such an id
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<br/>
 
-### `npm run build`
+## Figma Link
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+[Prototype](https://www.figma.com/file/j1riIQcmnRDYlkrJWRKOVa/Untitled?node-id=2%3A50&t=bUlL8RaEgzbNSLJT-1)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Images
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Home Page
+<br />
 
-### `npm run eject`
+![home page](/images/home%20page.png)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Movie Page
+<br/>
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+![home page](/images/movie%20page.png)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Checkout Page
+<br/>
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+![home page](/images/checkout.png)
 
-## Learn More
+### Payment Confirmation Page
+<br/>
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+![home page](/images/payment_confirmation.png)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+<br/>
 
-### Code Splitting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
