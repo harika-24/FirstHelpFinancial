@@ -11,6 +11,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 //Component Links
 import ShowsList from "./components/ShowsList";
 import Movie from "./components/Movie";
+import Checkout from "./components/Checkout";
 
 //CSS Links
 import "./App.css"
@@ -39,6 +40,9 @@ function App() {
                 }/>
                 <Route exact path={"/movie/:id/"} element={
                     <Movie  shows={movies} handleSeatBooking={handleSeatBooking} />
+                }/>
+                <Route exact path={"/checkout"} element={
+                    <Checkout seats={noOfSeats} />
                 }/>
             </Routes>
         </div>

@@ -1,5 +1,5 @@
 import { Container, Row, Col, Image, Form, Button } from "react-bootstrap";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import {useState} from 'react';
 import "./Movie.css";
 
@@ -58,9 +58,11 @@ function Movie(props) {
                     </Form.Select>
                   </Form.Group>
                   <Form.Group className="d-flex chkOutBtnFormGroup">
-                  <Button className="p-3" variant="primary" type="submit">
-                    Proceed to Checkout
-                  </Button>
+                  <Link to={'/checkout'}>
+                    <Button className="p-3" variant="primary" type="submit">
+                        Proceed to Checkout
+                    </Button>
+                  </Link>
                   </Form.Group>
                 </Form>
               </Col>
